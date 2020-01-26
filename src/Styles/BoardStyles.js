@@ -20,5 +20,9 @@ export default {
 		height: "4.5rem",
 		margin: "0 .5rem",
 		fontSize: "1.5rem"
+	},
+	alertOverride: {
+		fontSize: "1.5rem",
+		marginLeft: "0"
 	}
 };

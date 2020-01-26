@@ -14,7 +14,9 @@ export default {
 	laneHeader: {
 		fontSize: "2rem",
 		fontWeight: "bold",
-		marginBottom: "1rem"
+		marginBottom: "1rem",
+		display: "flex",
+		justifyContent: "space-between"
 	},
 	taskWrapper: {
 		display: "flex",
