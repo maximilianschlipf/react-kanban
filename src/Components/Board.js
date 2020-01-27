@@ -23,7 +23,7 @@ const Board = props => {
 		setOpen(true);
 	};
 
-	const closeAlert = (event, reason) => {
+	const closeAlert = reason => {
 		if (reason === "clickaway") {
 			return;
 		}
@@ -35,7 +35,7 @@ const Board = props => {
 			<h2>Board title</h2>
 			<div className={classes.lanes}>
 				{lanes.map(lane => (
-					<DragDropContext>
+					<DragDropContext key={lane.id}>
 						<Lane
 							title={lane.title}
 							id={lane.id}

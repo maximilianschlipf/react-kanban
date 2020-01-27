@@ -9,16 +9,15 @@ const TaskList = props => {
 	return (
 		<div className={classes.taskList}>
 			{tasks.map((task, index) => (
-				<Draggable draggableId={task.title} index={index}>
+				<Draggable draggableId={task.title} index={index} key={task.id}>
 					{provided => (
-						<Task
-							title={task.title}
-							key={task.id}
-							id={task.id}
+						<div
 							{...provided.draggableProps}
 							{...provided.dragHandleProps}
-							innerRef={provided.innerRef}
-						/>
+							ref={provided.innerRef}
+						>
+							<Task title={task.title} key={task.id} id={task.id} />
+						</div>
 					)}
 				</Draggable>
 			))}

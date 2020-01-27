@@ -22,13 +22,10 @@ const Lane = props => {
 			</div>
 			<Droppable droppableId={title}>
 				{provided => (
-					<TaskList
-						innerRef={provided.innerRef}
-						{...provided.droppableProps}
-						tasks={tasks}
-					>
+					<div ref={provided.innerRef} {...provided.droppableProps}>
+						<TaskList tasks={tasks}></TaskList>
 						{provided.placeholder}
-					</TaskList>
+					</div>
 				)}
 			</Droppable>
 		</div>

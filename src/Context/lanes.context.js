@@ -6,7 +6,10 @@ const defaultLanes = [
 	{
 		id: 2,
 		title: "Test lane 2",
-		tasks: [{ id: 2, title: "Test task 2" }]
+		tasks: [
+			{ id: 2, title: "Test task 2" },
+			{ id: 3, title: "Test task 3" }
+		]
 	}
 ];
 
