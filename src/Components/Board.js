@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import Lane from "./Lane";
 import useInputState from "../Hooks/useInputState";
 import { DispatchContext, LanesContext } from "../Context/lanes.context";
+import { DragDropContext } from "react-beautiful-dnd";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -34,7 +35,14 @@ const Board = props => {
 			<h2>Board title</h2>
 			<div className={classes.lanes}>
 				{lanes.map(lane => (
-					<Lane title={lane.title} id={lane.id} key={lane.id} />
+					<DragDropContext>
+						<Lane
+							title={lane.title}
+							id={lane.id}
+							key={lane.id}
+							tasks={lane.tasks}
+						/>
+					</DragDropContext>
 				))}
 				{isTyping ? (
 					<TextField
@@ -42,16 +50,22 @@ const Board = props => {
 						value={value}
 						className={classes.newLaneInput}
 						onKeyDown={e => {
-							if (e.key === "Enter" && e.value !== undefined) {
-								console.log(e.value);
+							if (e.key === "Enter" && value !== "") {
 								toggleInput();
 								dispatch({ type: "add", title: value });
 								reset();
-							} else {
+							} else if (e.key === "Escape") {
+								toggleInput();
+								reset();
+							} else if (e.key === "Enter" && value === "") {
 								openAlert();
 							}
 						}}
 						autoFocus={true}
+						onBlur={() => {
+							toggleInput();
+							reset();
+						}}
 					/>
 				) : (
 					<Button
@@ -82,7 +96,7 @@ const Board = props => {
 									color="inherit"
 									onClick={closeAlert}
 								>
-									<CloseIcon fontSize="small" />
+									<CloseIcon fontSize="large" />
 								</IconButton>
 							</React.Fragment>
 						}

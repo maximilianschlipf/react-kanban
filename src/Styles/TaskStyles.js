@@ -5,6 +5,7 @@ export default {
 		borderRadius: "5px",
 		backgroundColor: "#fff",
 		color: "#000",
-		padding: ".5rem"
+		padding: ".5rem",
+		marginTop: ".5rem"
 	}
 };

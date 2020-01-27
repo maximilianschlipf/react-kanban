@@ -17,10 +17,5 @@ export default {
 		marginBottom: "1rem",
 		display: "flex",
 		justifyContent: "space-between"
-	},
-	taskWrapper: {
-		display: "flex",
-		flexDirection: "column",
-		alignItems: "flex-start"
 	}
 };
