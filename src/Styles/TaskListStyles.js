@@ -1,8 +1,8 @@
 export default {
-	taskList: {
+	taskList: props => ({
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "flex-start",
 		width: "100%"
-	}
+	})
 };

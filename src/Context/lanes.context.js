@@ -2,7 +2,15 @@ import React, { createContext, useReducer } from "react";
 import laneReducer from "../Reducers/lane.reducer";
 
 const defaultLanes = [
-	{ id: 1, title: "Test lane", tasks: [{ id: 1, title: "Test task" }] },
+	{
+		id: 1,
+		title: "Test lane",
+		tasks: [
+			{ id: 1, title: "Test task" },
+			{ id: 4, title: "Test task 4" },
+			{ id: 5, title: "Test task 5" }
+		]
+	},
 	{
 		id: 2,
 		title: "Test lane 2",

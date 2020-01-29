@@ -21,9 +21,19 @@ const Lane = props => {
 				</IconButton>
 			</div>
 			<Droppable droppableId={id.toString()}>
-				{provided => (
-					<div ref={provided.innerRef} {...provided.droppableProps}>
-						<TaskList tasks={tasks}></TaskList>
+				{(provided, snapshot) => (
+					<div
+						ref={provided.innerRef}
+						{...provided.droppableProps}
+						style={{
+							...provided.droppableProps.style,
+							minHeight: "4rem"
+						}}
+					>
+						<TaskList
+							tasks={tasks}
+							isDraggingOver={snapshot.isDraggingOver}
+						></TaskList>
 						{provided.placeholder}
 					</div>
 				)}

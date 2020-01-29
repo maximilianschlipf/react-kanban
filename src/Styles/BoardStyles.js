@@ -1,8 +1,7 @@
 export default {
 	board: {
 		height: "93vh",
-		width: "100%",
-		overflow: "hidden",
+		width: "auto",
 		position: "relative",
 		paddingTop: "7vh",
 		paddingLeft: "1.5rem",
@@ -10,13 +9,18 @@ export default {
 	},
 	lanes: {
 		display: "flex",
-		width: "100%"
+		width: "auto",
+		flexWrap: "nowrap",
+		overflowX: "scroll",
+		overflowY: "hidden",
+		whiteSpace: "nowrap",
+		height: "100%"
 	},
 	newLaneInput: {
 		margin: "0 .5rem"
 	},
 	toggleInputBtn: {
-		width: "30rem",
+		minWidth: "30rem",
 		height: "4.5rem",
 		margin: "0 .5rem",
 		fontSize: "1.5rem"

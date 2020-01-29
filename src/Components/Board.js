@@ -49,6 +49,7 @@ const Board = props => {
 			type: "update",
 			sourceDroppableId: source.droppableId,
 			sourceIndex: source.index,
+			destinationDroppableId: destination.droppableId,
 			destinationIndex: destination.index
 		});
 	};
@@ -57,74 +58,74 @@ const Board = props => {
 		<div className={classes.board}>
 			<h2>Board title</h2>
 			<div className={classes.lanes}>
-				{lanes.map(lane => (
-					<DragDropContext key={lane.id} onDragEnd={onDragEnd}>
+				<DragDropContext key={"1"} onDragEnd={onDragEnd}>
+					{lanes.map(lane => (
 						<Lane
 							title={lane.title}
 							id={lane.id}
 							key={lane.id}
 							tasks={lane.tasks}
 						/>
-					</DragDropContext>
-				))}
-				{isTyping ? (
-					<TextField
-						onChange={handleChange}
-						value={value}
-						className={classes.newLaneInput}
-						onKeyDown={e => {
-							if (e.key === "Enter" && value !== "") {
+					))}
+					{isTyping ? (
+						<TextField
+							onChange={handleChange}
+							value={value}
+							className={classes.newLaneInput}
+							onKeyDown={e => {
+								if (e.key === "Enter" && value !== "") {
+									toggleInput();
+									dispatch({ type: "add", title: value });
+									reset();
+								} else if (e.key === "Escape") {
+									toggleInput();
+									reset();
+								} else if (e.key === "Enter" && value === "") {
+									openAlert();
+								}
+							}}
+							autoFocus={true}
+							onBlur={() => {
 								toggleInput();
-								dispatch({ type: "add", title: value });
 								reset();
-							} else if (e.key === "Escape") {
-								toggleInput();
-								reset();
-							} else if (e.key === "Enter" && value === "") {
-								openAlert();
-							}
+							}}
+						/>
+					) : (
+						<Button
+							variant="contained"
+							onClick={toggleInput}
+							className={classes.toggleInputBtn}
+						>
+							Add new lane
+						</Button>
+					)}
+					<Snackbar
+						anchorOrigin={{
+							vertical: "bottom",
+							horizontal: "left"
 						}}
-						autoFocus={true}
-						onBlur={() => {
-							toggleInput();
-							reset();
-						}}
-					/>
-				) : (
-					<Button
-						variant="contained"
-						onClick={toggleInput}
-						className={classes.toggleInputBtn}
+						open={open}
+						autoHideDuration={6000}
+						onClose={closeAlert}
 					>
-						Add new lane
-					</Button>
-				)}
-				<Snackbar
-					anchorOrigin={{
-						vertical: "bottom",
-						horizontal: "left"
-					}}
-					open={open}
-					autoHideDuration={6000}
-					onClose={closeAlert}
-				>
-					<SnackbarContent
-						className={classes.alertOverride}
-						message="Please type in a title in order to add a new lane!"
-						action={
-							<React.Fragment>
-								<IconButton
-									size="small"
-									aria-label="close"
-									color="inherit"
-									onClick={closeAlert}
-								>
-									<CloseIcon fontSize="large" />
-								</IconButton>
-							</React.Fragment>
-						}
-					/>
-				</Snackbar>
+						<SnackbarContent
+							className={classes.alertOverride}
+							message="Please type in a title in order to add a new lane!"
+							action={
+								<React.Fragment>
+									<IconButton
+										size="small"
+										aria-label="close"
+										color="inherit"
+										onClick={closeAlert}
+									>
+										<CloseIcon fontSize="large" />
+									</IconButton>
+								</React.Fragment>
+							}
+						/>
+					</Snackbar>
+				</DragDropContext>
 			</div>
 		</div>
 	);
