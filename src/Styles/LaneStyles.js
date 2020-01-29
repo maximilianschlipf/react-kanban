@@ -1,7 +1,7 @@
 export default {
 	lane: {
 		width: "30rem",
-		minHeight: "0",
+		minHeight: "15rem",
 		maxHeight: "100%",
 		color: "#000",
 		borderRadius: "5px",

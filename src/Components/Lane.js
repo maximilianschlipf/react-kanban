@@ -20,7 +20,7 @@ const Lane = props => {
 					<DeleteIcon />
 				</IconButton>
 			</div>
-			<Droppable droppableId={title}>
+			<Droppable droppableId={id.toString()}>
 				{provided => (
 					<div ref={provided.innerRef} {...provided.droppableProps}>
 						<TaskList tasks={tasks}></TaskList>

@@ -30,12 +30,35 @@ const Board = props => {
 
 		setOpen(false);
 	};
+
+	const onDragEnd = result => {
+		const { destination, source, draggableId } = result;
+
+		if (!destination) {
+			return;
+		}
+
+		if (
+			destination.droppableId === source.droppableId &&
+			destination.index === source.index
+		) {
+			return;
+		}
+
+		dispatch({
+			type: "update",
+			sourceDroppableId: source.droppableId,
+			sourceIndex: source.index,
+			destinationIndex: destination.index
+		});
+	};
+
 	return (
 		<div className={classes.board}>
 			<h2>Board title</h2>
 			<div className={classes.lanes}>
 				{lanes.map(lane => (
-					<DragDropContext key={lane.id}>
+					<DragDropContext key={lane.id} onDragEnd={onDragEnd}>
 						<Lane
 							title={lane.title}
 							id={lane.id}
