@@ -8,12 +8,9 @@ export default {
 		boxShadow:
 			"0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)",
 		backgroundColor: "#e0e0e0",
-		overflow: "visible",
-		display: "inline-block",
 		flex: "1 0 auto",
 		flexGrow: "0",
-		minHeight: "30rem",
-		height: "auto"
+		minHeight: "30rem"
 	},
 	laneHeader: {
 		fontSize: "2rem",
