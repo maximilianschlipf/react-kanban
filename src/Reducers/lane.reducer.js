@@ -21,7 +21,6 @@ const reducer = (state, action) => {
 			const finishLane = state.find(
 				lane => lane.id.toString() === action.destinationDroppableId
 			);
-			console.log(finishLane);
 			const oldTasks = Array.from(startLane.tasks);
 			const task = oldTasks[action.sourceIndex];
 			oldTasks.splice(action.sourceIndex, 1);
@@ -41,6 +40,16 @@ const reducer = (state, action) => {
 			newState[startIndex].tasks = oldTasks;
 
 			return [...newState];
+		case "addTask":
+			if (action.taskTitle === "" || action.taskTitle === undefined) {
+				return state;
+			} else {
+				const firstLane = state.find(lane => lane.id === 1);
+				const stateCopy = [...state];
+				firstLane.tasks.push({ id: uuid(), title: action.taskTitle });
+				stateCopy[0] = firstLane;
+				return [...stateCopy];
+			}
 		default:
 			return state;
 	}

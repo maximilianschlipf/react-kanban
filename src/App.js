@@ -8,13 +8,14 @@ import { Route, Switch } from "react-router-dom";
 function App() {
 	return (
 		<>
-			<Navbar>
-				<Switch>
-					<Route exact path="/" render={() => <Board />} />
-					<Route exact path="/board" render={() => <Board />} />
-				</Switch>
-			</Navbar>
 			<LanesProvider>
+				<Navbar>
+					<Switch>
+						<Route exact path="/" render={() => <Board />} />
+						<Route exact path="/board" render={() => <Board />} />
+					</Switch>
+				</Navbar>
+
 				<TasksProvider>
 					<Board />
 				</TasksProvider>

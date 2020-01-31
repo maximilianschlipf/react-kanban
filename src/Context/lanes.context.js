@@ -4,7 +4,7 @@ import laneReducer from "../Reducers/lane.reducer";
 const defaultLanes = [
 	{
 		id: 1,
-		title: "Test lane",
+		title: "Open",
 		tasks: [
 			{ id: 1, title: "Test task" },
 			{ id: 4, title: "Test task 4" },
@@ -13,7 +13,7 @@ const defaultLanes = [
 	},
 	{
 		id: 2,
-		title: "Test lane 2",
+		title: "In Progress",
 		tasks: [
 			{ id: 2, title: "Test task 2" },
 			{ id: 3, title: "Test task 3" }

@@ -15,7 +15,8 @@ export default {
 		alignItems: "flex-start"
 	},
 	newLaneInput: {
-		margin: "0 .5rem"
+		margin: "0 .5rem",
+		width: "30rem"
 	},
 	toggleInputBtn: {
 		minWidth: "30rem",
