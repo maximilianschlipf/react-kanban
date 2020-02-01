@@ -6,13 +6,18 @@ export default {
 		paddingLeft: "1.5rem",
 		paddingRight: "1.5rem"
 	},
+	boardTitle: {
+		padding: "1rem",
+		fontSize: "2rem"
+	},
 	lanes: {
 		display: "flex",
 		overflowX: "scroll",
 		overflowY: "hidden",
 		whiteSpace: "nowrap",
 		height: "100%",
-		alignItems: "flex-start"
+		alignItems: "flex-start",
+		paddingTop: "1rem"
 	},
 	newLaneInput: {
 		margin: "0 .5rem",
