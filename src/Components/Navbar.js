@@ -49,6 +49,7 @@ const Navbar = props => {
 				aria-labelledby="form-dialog-title"
 				className={classes.dialogOverride}
 				maxWidth="lg"
+				fullWidth={true}
 			>
 				<h3 className={classes.createTaskTitle}>Create task</h3>
 				<DialogContent className={classes.dialogOverride}>
@@ -61,7 +62,6 @@ const Navbar = props => {
 						id="name"
 						label="Title"
 						type="text"
-						fullWidth
 						value={value}
 						onChange={handleChange}
 					/>

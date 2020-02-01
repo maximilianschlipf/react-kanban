@@ -111,7 +111,10 @@ const Board = props => {
 					onKeyDown={e => handleKeyDownBoardTitle(e)}
 				/>
 			) : (
-				<Button onClick={toggleEditBoardTitle}>
+				<Button
+					onClick={toggleEditBoardTitle}
+					className={classes.toggleEditTitleBtn}
+				>
 					<h2 className={classes.boardTitle}>{boardTitle}</h2>
 				</Button>
 			)}
@@ -130,7 +133,7 @@ const Board = props => {
 					<Button
 						variant="contained"
 						onClick={handleClickOpen}
-						className={classes.toggleInputBtn}
+						className={classes.toggleNewLaneBtn}
 					>
 						Add new lane
 					</Button>
@@ -168,10 +171,12 @@ const Board = props => {
 						className={classes.dialogOverride}
 						maxWidth="lg"
 					>
-						<h3 className={classes.createTaskTitle}>Create task</h3>
+						<h3 className={classes.createLaneTitleHeading}>
+							Create a new lane
+						</h3>
 						<DialogContent className={classes.dialogOverride}>
-							<p className={classes.createTaskText}>
-								Please give your task a title
+							<p className={classes.createLaneTitleText}>
+								Please give your lane a title
 							</p>
 							<TextField
 								onChange={handleChange}
@@ -183,14 +188,14 @@ const Board = props => {
 						<DialogActions>
 							<Button
 								onClick={handleCancelCreate}
-								className={classes.createTaskFormBtn}
+								className={classes.createLaneFormBtn}
 								color="primary"
 							>
 								Cancel
 							</Button>
 							<Button
 								onClick={handleCreate}
-								className={classes.createTaskFormBtn}
+								className={classes.createLaneFormBtn}
 								color="primary"
 							>
 								Create task

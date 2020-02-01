@@ -7,7 +7,7 @@ export default {
 		paddingRight: "1.5rem"
 	},
 	boardTitle: {
-		padding: "1rem",
+		padding: ".5rem 1rem",
 		fontSize: "2rem"
 	},
 	lanes: {
@@ -23,14 +23,30 @@ export default {
 		margin: "0 .5rem",
 		width: "30rem"
 	},
-	toggleInputBtn: {
+	toggleNewLaneBtn: {
 		minWidth: "30rem",
 		height: "4.5rem",
 		margin: "0 .5rem",
 		fontSize: "1.5rem"
 	},
+	toggleEditTitleBtn: {
+		marginTop: "2rem",
+		borderRadius: "5px"
+	},
 	alertOverride: {
 		fontSize: "1.5rem",
 		marginLeft: "0"
+	},
+	createLaneTitleHeading: {
+		fontSize: "2rem",
+		fontWeight: "bold",
+		textAlign: "center",
+		margin: "1rem 0"
+	},
+	createLaneTitleText: {
+		fontSize: "1.5rem"
+	},
+	createLaneFormBtn: {
+		fontSize: "1.3rem"
 	}
 };
