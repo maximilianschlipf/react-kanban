@@ -2,7 +2,7 @@ export default {
 	board: {
 		height: "97vh",
 		position: "relative",
-		paddingTop: "7vh",
+		marginTop: "7vh",
 		paddingLeft: "1.5rem",
 		paddingRight: "1.5rem"
 	},

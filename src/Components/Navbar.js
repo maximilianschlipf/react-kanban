@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { NavLink } from "react-router-dom";
 import useInputState from "../Hooks/useInputState";
 import { DispatchContext } from "../Context/lanes.context";
 import { withStyles } from "@material-ui/core/styles";
@@ -35,7 +36,14 @@ const Navbar = props => {
 	return (
 		<>
 			<AppBar className={classes.navbar} position="fixed">
-				<h1>Kanban Board</h1>
+				<NavLink
+					exact
+					to="/board"
+					activeStyle={{ textDecoration: "none" }}
+					className={classes.navLink}
+				>
+					<h1>Kanban Board</h1>
+				</NavLink>
 				<button
 					className={classes.createTaskNavbarBtn}
 					onClick={handleClickOpen}

@@ -17,10 +17,10 @@ import styles from "../Styles/BoardStyles";
 
 const Board = props => {
 	const { classes } = props;
-	const [isTypingTitle, toggleInputTitle] = useState(false);
+	const [isTypingBoardTitle, toggleInputBoardTitle] = useState(false);
 	const [open, setOpen] = useState(false);
-	const [openDialog, setOpenDialog] = useState(false);
-	const [value, handleChange, reset] = useInputState("");
+	const [isTypingLaneTitle, toggleInputLaneTitle] = useState(false);
+	const [laneTitle, handleLaneTitleChange, resetLaneTitle] = useInputState("");
 	const [boardTitle, handleBoardTitleChange, resetBoardTitle] = useInputState(
 		"Board Title"
 	);
@@ -54,7 +54,7 @@ const Board = props => {
 		}
 
 		dispatch({
-			type: "update",
+			type: "updateTaskOrder",
 			sourceDroppableId: source.droppableId,
 			sourceIndex: source.index,
 			destinationDroppableId: destination.droppableId,
@@ -63,7 +63,11 @@ const Board = props => {
 	};
 
 	const toggleEditBoardTitle = () => {
-		toggleInputTitle(!isTypingTitle);
+		toggleInputBoardTitle(!isTypingBoardTitle);
+	};
+
+	const toggleEditLaneTitle = () => {
+		toggleInputLaneTitle(!isTypingLaneTitle);
 	};
 
 	const handleKeyDownBoardTitle = e => {
@@ -82,28 +86,44 @@ const Board = props => {
 		}
 	};
 
+	const handleKeyDownLaneTitle = e => {
+		if (
+			(e.key === "Enter" && laneTitle === "") ||
+			(e.key === "Escape" && laneTitle === "")
+		) {
+			openAlert();
+		}
+		if (e.key === "Enter" && laneTitle !== "") {
+			toggleEditLaneTitle();
+		}
+		if (e.key === "Escape" && laneTitle !== "") {
+			toggleEditLaneTitle();
+			resetLaneTitle();
+		}
+	};
+
 	const handleClickOpen = () => {
-		setOpenDialog(true);
+		toggleInputLaneTitle(true);
 	};
 
 	const handleCreate = () => {
-		if (value !== "") {
-			setOpenDialog(false);
-			dispatch({ type: "add", title: value });
-			reset();
+		if (laneTitle !== "") {
+			toggleInputLaneTitle(false);
+			dispatch({ type: "add", title: laneTitle });
+			resetLaneTitle();
 		} else {
 			openAlert();
 		}
 	};
 
 	const handleCancelCreate = () => {
-		setOpenDialog(false);
-		reset();
+		toggleInputLaneTitle(false);
+		resetLaneTitle();
 	};
 
 	return (
 		<div className={classes.board}>
-			{isTypingTitle ? (
+			{isTypingBoardTitle ? (
 				<TextField
 					value={boardTitle}
 					onChange={handleBoardTitleChange}
@@ -165,7 +185,7 @@ const Board = props => {
 						/>
 					</Snackbar>
 					<Dialog
-						open={openDialog}
+						open={isTypingLaneTitle}
 						onClose={handleCancelCreate}
 						aria-labelledby="form-dialog-title"
 						className={classes.dialogOverride}
@@ -179,10 +199,11 @@ const Board = props => {
 								Please give your lane a title
 							</p>
 							<TextField
-								onChange={handleChange}
-								value={value}
+								onChange={handleLaneTitleChange}
+								value={laneTitle}
 								className={classes.newLaneInput}
 								autoFocus={true}
+								onKeyDown={handleKeyDownLaneTitle}
 							/>
 						</DialogContent>
 						<DialogActions>

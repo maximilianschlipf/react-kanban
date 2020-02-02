@@ -29,5 +29,8 @@ export default {
 	},
 	createTaskFormBtn: {
 		fontSize: "1.3rem"
+	},
+	navLink: {
+		color: "#000"
 	}
 };
