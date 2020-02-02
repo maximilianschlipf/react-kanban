@@ -6,7 +6,7 @@ import styles from "../Styles/TaskStyles";
 const Task = props => {
 	const { classes, title, id } = props;
 	return (
-		<Link to={`/board/${id}`}>
+		<Link to={`/board/${id}`} className={classes.taskLink}>
 			<div className={classes.task} ref={props.innerRef}>
 				{title}
 			</div>

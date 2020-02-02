@@ -7,5 +7,8 @@ export default {
 		color: "#000",
 		padding: ".5rem",
 		marginTop: ".5rem"
-	})
+	}),
+	taskLink: {
+		textDecoration: "none"
+	}
 };

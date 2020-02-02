@@ -20,10 +20,14 @@ const Board = props => {
 	const [isTypingBoardTitle, toggleInputBoardTitle] = useState(false);
 	const [open, setOpen] = useState(false);
 	const [isTypingLaneTitle, toggleInputLaneTitle] = useState(false);
-	const [laneTitle, handleLaneTitleChange, resetLaneTitle] = useInputState("");
-	const [boardTitle, handleBoardTitleChange, resetBoardTitle] = useInputState(
-		"Board Title"
+	const [laneTitle, handleLaneTitleChange, resetLaneTitleInput] = useInputState(
+		""
 	);
+	const [
+		boardTitle,
+		handleBoardTitleChange,
+		resetBoardTitleInput
+	] = useInputState("Board Title");
 	const lanes = useContext(LanesContext);
 	const dispatch = useContext(DispatchContext);
 
@@ -82,7 +86,7 @@ const Board = props => {
 		}
 		if (e.key === "Escape" && boardTitle !== "") {
 			toggleEditBoardTitle();
-			resetBoardTitle();
+			resetBoardTitleInput();
 		}
 	};
 
@@ -94,11 +98,12 @@ const Board = props => {
 			openAlert();
 		}
 		if (e.key === "Enter" && laneTitle !== "") {
-			toggleEditLaneTitle();
+			toggleInputLaneTitle();
 		}
 		if (e.key === "Escape" && laneTitle !== "") {
-			toggleEditLaneTitle();
-			resetLaneTitle();
+			toggleInputLaneTitle();
+			dispatch({ type: "add", title: laneTitle });
+			resetLaneTitleInput();
 		}
 	};
 
@@ -110,7 +115,7 @@ const Board = props => {
 		if (laneTitle !== "") {
 			toggleInputLaneTitle(false);
 			dispatch({ type: "add", title: laneTitle });
-			resetLaneTitle();
+			resetLaneTitleInput();
 		} else {
 			openAlert();
 		}
@@ -118,7 +123,7 @@ const Board = props => {
 
 	const handleCancelCreate = () => {
 		toggleInputLaneTitle(false);
-		resetLaneTitle();
+		resetLaneTitleInput();
 	};
 
 	return (
@@ -129,6 +134,7 @@ const Board = props => {
 					onChange={handleBoardTitleChange}
 					autoFocus={true}
 					onKeyDown={e => handleKeyDownBoardTitle(e)}
+					className={classes.boardTitleInput}
 				/>
 			) : (
 				<Button
@@ -203,7 +209,7 @@ const Board = props => {
 								value={laneTitle}
 								className={classes.newLaneInput}
 								autoFocus={true}
-								onKeyDown={handleKeyDownLaneTitle}
+								onKeyDown={e => handleKeyDownLaneTitle(e)}
 							/>
 						</DialogContent>
 						<DialogActions>

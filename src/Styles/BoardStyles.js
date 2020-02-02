@@ -33,6 +33,10 @@ export default {
 		marginTop: "2rem",
 		borderRadius: "5px"
 	},
+	boardTitleInput: {
+		marginTop: "3.1rem",
+		marginBottom: "1rem"
+	},
 	alertOverride: {
 		fontSize: "1.5rem",
 		marginLeft: "0"

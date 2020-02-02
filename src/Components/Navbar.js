@@ -9,29 +9,49 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import styles from "../Styles/NavbarStyles";
 
 const Navbar = props => {
 	const { classes } = props;
 	const dispatch = useContext(DispatchContext);
 	const [open, setOpen] = useState(false);
-	const [value, handleChange, reset] = useInputState("");
+	const [taskTitle, handleTaskTitleChange, resetTaskTitleInput] = useInputState(
+		""
+	);
+	const [priority, handlePriorityChange, resetPriorityInput] = useInputState(
+		"Normal"
+	);
+	const [
+		taskDescription,
+		handleTaskDescriptionChange,
+		resetTaskDescriptionInput
+	] = useInputState("");
 
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
 
 	const handleCreate = () => {
-		if (value !== undefined || value !== "") {
-			dispatch({ type: "addTask", taskTitle: value });
+		if (taskTitle !== undefined || taskTitle !== "") {
+			dispatch({
+				type: "addTask",
+				taskTitle: taskTitle,
+				taskDescription: taskDescription,
+				priority: priority
+			});
 		}
 		setOpen(false);
-		reset();
+		resetTaskTitleInput();
+		resetPriorityInput();
+		resetTaskDescriptionInput();
 	};
 
 	const handleCancel = () => {
 		setOpen(false);
-		reset();
+		resetTaskTitleInput();
 	};
 	return (
 		<>
@@ -61,17 +81,35 @@ const Navbar = props => {
 			>
 				<h3 className={classes.createTaskTitle}>Create task</h3>
 				<DialogContent className={classes.dialogOverride}>
-					<p className={classes.createTaskText}>
-						Please give your task a title
-					</p>
+					<p className={classes.formLabel}>Title:</p>
 					<TextField
 						autoFocus
 						margin="dense"
 						id="name"
-						label="Title"
 						type="text"
-						value={value}
-						onChange={handleChange}
+						value={taskTitle}
+						onChange={handleTaskTitleChange}
+					/>
+					<FormHelperText>Required</FormHelperText>
+					<p className={classes.formLabel}>Priority:</p>
+					<Select value={priority} onChange={handlePriorityChange}>
+						<MenuItem value={"High"}>High</MenuItem>
+						<MenuItem value={"Normal"}>Normal</MenuItem>
+						<MenuItem value={"Low"}>Low</MenuItem>
+					</Select>
+					<p className={classes.formLabel}>Description:</p>
+					<TextField
+						margin="dense"
+						id="name"
+						type="text"
+						multiline
+						rows="4"
+						fullWidth
+						InputProps={{
+							className: classes.taskDescriptionTextArea
+						}}
+						value={taskDescription}
+						onChange={handleTaskDescriptionChange}
 					/>
 				</DialogContent>
 				<DialogActions>

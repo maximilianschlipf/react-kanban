@@ -46,7 +46,13 @@ const reducer = (state, action) => {
 			} else {
 				const firstLane = state.find(lane => lane.id === 1);
 				const stateCopy = [...state];
-				firstLane.tasks.push({ id: uuid(), title: action.taskTitle });
+				firstLane.tasks.push({
+					id: uuid(),
+					title: action.taskTitle,
+					status: "Open",
+					description: action.taskDescription,
+					priority: action.priority
+				});
 				stateCopy[0] = firstLane;
 				return [...stateCopy];
 			}
