@@ -11,7 +11,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import styles from "../Styles/NavbarStyles";
 
 const Navbar = props => {
@@ -35,7 +34,7 @@ const Navbar = props => {
 	};
 
 	const handleCreate = () => {
-		if (taskTitle !== undefined || taskTitle !== "") {
+		if (taskTitle !== undefined && taskTitle !== "") {
 			dispatch({
 				type: "addTask",
 				taskTitle: taskTitle,
@@ -43,6 +42,7 @@ const Navbar = props => {
 				priority: priority
 			});
 		}
+		// Else: tell user that title input is required
 		setOpen(false);
 		resetTaskTitleInput();
 		resetPriorityInput();
@@ -79,9 +79,9 @@ const Navbar = props => {
 				maxWidth="lg"
 				fullWidth={true}
 			>
-				<h3 className={classes.createTaskTitle}>Create task</h3>
+				<h3 className={classes.createTaskTitle}>Create a new task</h3>
 				<DialogContent className={classes.dialogOverride}>
-					<p className={classes.formLabel}>Title:</p>
+					<p className={classes.formLabel}>Title: </p>
 					<TextField
 						autoFocus
 						margin="dense"
@@ -89,10 +89,19 @@ const Navbar = props => {
 						type="text"
 						value={taskTitle}
 						onChange={handleTaskTitleChange}
+						required
+						InputProps={{
+							className: classes.taskTitleInput,
+							disableUnderline: true
+						}}
 					/>
-					<FormHelperText>Required</FormHelperText>
-					<p className={classes.formLabel}>Priority:</p>
-					<Select value={priority} onChange={handlePriorityChange}>
+					<br />
+					<p className={classes.formLabelPriority}>Priority:</p>
+					<Select
+						value={priority}
+						onChange={handlePriorityChange}
+						diplay="inline"
+					>
 						<MenuItem value={"High"}>High</MenuItem>
 						<MenuItem value={"Normal"}>Normal</MenuItem>
 						<MenuItem value={"Low"}>Low</MenuItem>
@@ -106,7 +115,8 @@ const Navbar = props => {
 						rows="4"
 						fullWidth
 						InputProps={{
-							className: classes.taskDescriptionTextArea
+							className: classes.taskDescriptionTextArea,
+							disableUnderline: true
 						}}
 						value={taskDescription}
 						onChange={handleTaskDescriptionChange}

@@ -13,6 +13,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import styles from "../Styles/BoardStyles";
 
 const Board = props => {
@@ -129,13 +130,15 @@ const Board = props => {
 	return (
 		<div className={classes.board}>
 			{isTypingBoardTitle ? (
-				<TextField
-					value={boardTitle}
-					onChange={handleBoardTitleChange}
-					autoFocus={true}
-					onKeyDown={e => handleKeyDownBoardTitle(e)}
-					className={classes.boardTitleInput}
-				/>
+				<ClickAwayListener onClickAway={() => toggleInputBoardTitle()}>
+					<TextField
+						value={boardTitle}
+						onChange={handleBoardTitleChange}
+						autoFocus={true}
+						onKeyDown={e => handleKeyDownBoardTitle(e)}
+						className={classes.boardTitleInput}
+					/>
+				</ClickAwayListener>
 			) : (
 				<Button
 					onClick={toggleEditBoardTitle}
@@ -225,7 +228,7 @@ const Board = props => {
 								className={classes.createLaneFormBtn}
 								color="primary"
 							>
-								Create task
+								Create lane
 							</Button>
 						</DialogActions>
 					</Dialog>

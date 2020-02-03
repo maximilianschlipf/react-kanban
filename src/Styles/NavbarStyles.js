@@ -20,10 +20,15 @@ export default {
 	},
 	formLabel: {
 		fontSize: "1.5rem",
-		margin: "2.5rem 0",
+		margin: "1.5rem 0",
 		"&:first-child": {
 			marginTop: "0"
 		}
+	},
+	formLabelPriority: {
+		display: "inline-block",
+		marginTop: "2rem",
+		marginRight: "1rem"
 	},
 	createTaskTitle: {
 		fontSize: "2rem",
@@ -37,7 +42,15 @@ export default {
 	navLink: {
 		color: "#000"
 	},
+	taskTitleInput: {
+		border: "1px solid #000",
+		borderRadius: "5px",
+		paddingLeft: ".75rem"
+	},
 	taskDescriptionTextArea: {
-		fontSize: "2rem"
+		fontSize: "2rem",
+		border: "1px solid #000",
+		borderRadius: "5px",
+		paddingLeft: ".75rem"
 	}
 };

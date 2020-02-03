@@ -56,6 +56,24 @@ const reducer = (state, action) => {
 				stateCopy[0] = firstLane;
 				return [...stateCopy];
 			}
+		case "updateTask":
+			const newLane = state.find(lane =>
+				lane.tasks.some(task => task.id === action.taskId)
+			);
+			const index = state.findIndex(lane => lane.id === newLane.id);
+			let updatedState = [...state];
+			for (let i in newLane.tasks) {
+				if (newLane.tasks[i].id === action.taskId) {
+					newLane.tasks[i].title = action.taskTitle;
+					newLane.tasks[i].status = action.taskStatus;
+					newLane.tasks[i].priority = action.taskPriority;
+					newLane.tasks[i].description = action.taskDescription;
+					break;
+				}
+			}
+			updatedState[index] = newLane;
+			console.log(newLane);
+			return updatedState;
 		default:
 			return state;
 	}
