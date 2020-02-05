@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import useInputState from "../Hooks/useInputState";
 import { DispatchContext, LanesContext } from "../Context/lanes.context";
 import { withStyles } from "@material-ui/core/styles";
@@ -72,7 +72,11 @@ const TaskDetail = props => {
 				className={classes.taskSelectInput}
 			>
 				{lanes.map(lane => (
-					<MenuItem value={`${lane.title}`} key={lane.id}>
+					<MenuItem
+						value={`${lane.title}`}
+						key={lane.id}
+						className={classes.taskMenuItem}
+					>
 						{lane.title}
 					</MenuItem>
 				))}
@@ -90,9 +94,15 @@ const TaskDetail = props => {
 				diplay="inline"
 				className={classes.taskSelectInput}
 			>
-				<MenuItem value={"High"}>High</MenuItem>
-				<MenuItem value={"Normal"}>Normal</MenuItem>
-				<MenuItem value={"Low"}>Low</MenuItem>
+				<MenuItem value={"High"} className={classes.taskMenuItem}>
+					High
+				</MenuItem>
+				<MenuItem value={"Normal"} className={classes.taskMenuItem}>
+					Normal
+				</MenuItem>
+				<MenuItem value={"Low"} className={classes.taskMenuItem}>
+					Low
+				</MenuItem>
 			</Select>
 			<p className={classes.taskDetailDescriptionLabel}>Description:</p>
 			{isEditingDescription ? (

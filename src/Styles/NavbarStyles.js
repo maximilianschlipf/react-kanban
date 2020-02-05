@@ -57,5 +57,8 @@ export default {
 	taskPriorityInput: {
 		fontSize: "1.4rem",
 		marginLeft: ".3rem"
+	},
+	taskPriorityMenuItem: {
+		fontSize: "1.4rem"
 	}
 };

@@ -55,5 +55,8 @@ export default {
 	taskSelectInput: {
 		fontSize: "1.4rem",
 		marginLeft: "1rem"
+	},
+	taskMenuItem: {
+		fontSize: "1.4rem"
 	}
 };

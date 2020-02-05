@@ -71,10 +71,6 @@ const Board = props => {
 		toggleInputBoardTitle(!isTypingBoardTitle);
 	};
 
-	const toggleEditLaneTitle = () => {
-		toggleInputLaneTitle(!isTypingLaneTitle);
-	};
-
 	const handleKeyDownBoardTitle = e => {
 		if (
 			(e.key === "Enter" && boardTitle === "") ||
@@ -130,7 +126,7 @@ const Board = props => {
 	return (
 		<div className={classes.board}>
 			{isTypingBoardTitle ? (
-				<ClickAwayListener onClickAway={() => toggleInputBoardTitle()}>
+				<ClickAwayListener onClickAway={() => toggleInputBoardTitle(false)}>
 					<TextField
 						value={boardTitle}
 						onChange={handleBoardTitleChange}
@@ -180,7 +176,7 @@ const Board = props => {
 							className={classes.alertOverride}
 							message="Please type in a title!"
 							action={
-								<React.Fragment>
+								<>
 									<IconButton
 										size="small"
 										aria-label="close"
@@ -189,7 +185,7 @@ const Board = props => {
 									>
 										<CloseIcon fontSize="large" />
 									</IconButton>
-								</React.Fragment>
+								</>
 							}
 						/>
 					</Snackbar>

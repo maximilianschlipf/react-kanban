@@ -31,11 +31,13 @@ export default {
 	},
 	toggleEditTitleBtn: {
 		marginTop: "2rem",
-		borderRadius: "5px"
+		borderRadius: "5px",
+		paddingLeft: "0"
 	},
 	boardTitleInput: {
 		marginTop: "3.1rem",
-		marginBottom: "1rem"
+		marginBottom: "1rem",
+		marginLeft: ".5rem"
 	},
 	alertOverride: {
 		fontSize: "1.5rem",
