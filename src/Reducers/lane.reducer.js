@@ -22,11 +22,15 @@ const reducer = (state, action) => {
 				lane => lane.id.toString() === action.destinationDroppableId
 			);
 			const oldTasks = Array.from(startLane.tasks);
+
 			const task = oldTasks[action.sourceIndex];
+
 			oldTasks.splice(action.sourceIndex, 1);
+
 			if (action.destinationDroppableId === action.sourceDroppableId) {
 				oldTasks.splice(action.destinationIndex, 0, task);
 			} else {
+				task.status = finishLane.title;
 				let newTasks;
 				if (finishLane.tasks !== undefined) {
 					newTasks = Array.from(finishLane.tasks);
@@ -72,7 +76,6 @@ const reducer = (state, action) => {
 				}
 			}
 			updatedState[index] = newLane;
-			console.log(newLane);
 			return updatedState;
 		default:
 			return state;

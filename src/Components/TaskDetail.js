@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import useInputState from "../Hooks/useInputState";
-import { DispatchContext } from "../Context/lanes.context";
+import { DispatchContext, LanesContext } from "../Context/lanes.context";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -13,10 +13,9 @@ import styles from "../Styles/TaskDetailStyles";
 const TaskDetail = props => {
 	const { id, title, status, description, priority, classes } = props;
 	const dispatch = useContext(DispatchContext);
+	const lanes = useContext(LanesContext);
 	const [isEditingTitle, toggleIsEditingTitle] = useState(false);
-	const [statusValue, handleStatusChange, resetStatusInput] = useInputState(
-		status
-	);
+	const [statusValue, handleStatusChange] = useInputState(status);
 	const [priorityValue, handlePriorityChange] = useInputState(priority);
 	const [isEditingDescription, toggleIsEditingDescription] = useState(false);
 	const [isEditingSelect, toggleIsEditingSelect] = useState(false);
@@ -24,6 +23,7 @@ const TaskDetail = props => {
 	const [descriptionValue, handleDescriptionChange] = useInputState(
 		description
 	);
+
 	const handleSave = () => {
 		dispatch({
 			type: "updateTask",
@@ -37,10 +37,11 @@ const TaskDetail = props => {
 		toggleIsEditingDescription(false);
 		toggleIsEditingSelect(false);
 	};
+
 	return (
 		<div className={classes.taskDetail}>
 			{isEditingTitle ? (
-				<ClickAwayListener onClickAway={() => toggleIsEditingTitle()}>
+				<ClickAwayListener onClickAway={() => handleSave()}>
 					<Input
 						type="text"
 						value={titleValue}
@@ -63,13 +64,18 @@ const TaskDetail = props => {
 				value={statusValue}
 				onChange={e => {
 					handleStatusChange(e);
-					toggleIsEditingSelect(true);
+					if (!isEditingSelect) {
+						toggleIsEditingSelect(true);
+					}
 				}}
 				diplay="inline"
 				className={classes.taskSelectInput}
 			>
-				<MenuItem value={"Open"}>Open</MenuItem>
-				<MenuItem value={"In Progress"}>In Progress</MenuItem>
+				{lanes.map(lane => (
+					<MenuItem value={`${lane.title}`} key={lane.id}>
+						{lane.title}
+					</MenuItem>
+				))}
 			</Select>
 			<br />
 			<p className={classes.taskDetailPriorityLabel}>Priority:</p>
@@ -77,7 +83,9 @@ const TaskDetail = props => {
 				value={priorityValue}
 				onChange={e => {
 					handlePriorityChange(e);
-					toggleIsEditingSelect(true);
+					if (!isEditingSelect) {
+						toggleIsEditingSelect(true);
+					}
 				}}
 				diplay="inline"
 				className={classes.taskSelectInput}
@@ -88,7 +96,7 @@ const TaskDetail = props => {
 			</Select>
 			<p className={classes.taskDetailDescriptionLabel}>Description:</p>
 			{isEditingDescription ? (
-				<ClickAwayListener onClickAway={() => toggleIsEditingDescription()}>
+				<ClickAwayListener onClickAway={() => handleSave()}>
 					<TextField
 						value={descriptionValue}
 						onChange={handleDescriptionChange}
