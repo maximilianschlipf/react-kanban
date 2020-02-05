@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import useInputState from "../Hooks/useInputState";
 import { DispatchContext } from "../Context/lanes.context";
 import { withStyles } from "@material-ui/core/styles";
@@ -15,6 +15,7 @@ import styles from "../Styles/NavbarStyles";
 
 const Navbar = props => {
 	const { classes } = props;
+	const history = useHistory();
 	const dispatch = useContext(DispatchContext);
 	const [open, setOpen] = useState(false);
 	const [taskTitle, handleTaskTitleChange, resetTaskTitleInput] = useInputState(
@@ -42,11 +43,11 @@ const Navbar = props => {
 				priority: priority
 			});
 		}
-		// Else: tell user that title input is required
 		setOpen(false);
 		resetTaskTitleInput();
 		resetPriorityInput();
 		resetTaskDescriptionInput();
+		history.push("/board");
 	};
 
 	const handleCancel = () => {
@@ -101,6 +102,7 @@ const Navbar = props => {
 						value={priority}
 						onChange={handlePriorityChange}
 						diplay="inline"
+						className={classes.taskPriorityInput}
 					>
 						<MenuItem value={"High"}>High</MenuItem>
 						<MenuItem value={"Normal"}>Normal</MenuItem>

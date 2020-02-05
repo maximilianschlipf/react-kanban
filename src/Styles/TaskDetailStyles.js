@@ -7,7 +7,8 @@ export default {
 	},
 	taskDetailStatusLabel: {
 		marginTop: "1rem",
-		marginBottom: "1.5rem"
+		marginBottom: "1.5rem",
+		display: "inline-block"
 	},
 	taskDetailPriorityLabel: {
 		marginBottom: "1.5rem",
@@ -50,5 +51,9 @@ export default {
 	},
 	taskTitleInput: {
 		marginBottom: "1.1rem"
+	},
+	taskSelectInput: {
+		fontSize: "1.4rem",
+		marginLeft: "1rem"
 	}
 };

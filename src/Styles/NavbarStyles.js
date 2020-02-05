@@ -20,7 +20,8 @@ export default {
 	},
 	formLabel: {
 		fontSize: "1.5rem",
-		margin: "1.5rem 0",
+		marginTop: "1.5rem",
+		marginBottom: ".2rem",
 		"&:first-child": {
 			marginTop: "0"
 		}
@@ -52,5 +53,9 @@ export default {
 		border: "1px solid #000",
 		borderRadius: "5px",
 		paddingLeft: ".75rem"
+	},
+	taskPriorityInput: {
+		fontSize: "1.4rem",
+		marginLeft: ".3rem"
 	}
 };

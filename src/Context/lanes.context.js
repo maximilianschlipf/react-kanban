@@ -24,7 +24,8 @@ const defaultLanes = [
 				id: "5",
 				title: "Test task 5",
 				status: "Open",
-				description: "Test description"
+				description: "Test description",
+				priority: "Normal"
 			}
 		]
 	},

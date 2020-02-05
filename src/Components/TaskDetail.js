@@ -14,24 +14,28 @@ const TaskDetail = props => {
 	const { id, title, status, description, priority, classes } = props;
 	const dispatch = useContext(DispatchContext);
 	const [isEditingTitle, toggleIsEditingTitle] = useState(false);
+	const [statusValue, handleStatusChange, resetStatusInput] = useInputState(
+		status
+	);
+	const [priorityValue, handlePriorityChange] = useInputState(priority);
 	const [isEditingDescription, toggleIsEditingDescription] = useState(false);
-	const [titleValue, handleTitleChange, resetTitleInput] = useInputState(title);
-	const [
-		descriptionValue,
-		handleDescriptionChange,
-		resetDescriptionInput
-	] = useInputState(description);
+	const [isEditingSelect, toggleIsEditingSelect] = useState(false);
+	const [titleValue, handleTitleChange] = useInputState(title);
+	const [descriptionValue, handleDescriptionChange] = useInputState(
+		description
+	);
 	const handleSave = () => {
 		dispatch({
 			type: "updateTask",
 			taskId: id,
 			taskTitle: titleValue,
-			taskStatus: status,
-			taskPriority: priority,
+			taskStatus: statusValue,
+			taskPriority: priorityValue,
 			taskDescription: descriptionValue
 		});
-		toggleIsEditingTitle();
-		toggleIsEditingDescription();
+		toggleIsEditingTitle(false);
+		toggleIsEditingDescription(false);
+		toggleIsEditingSelect(false);
 	};
 	return (
 		<div className={classes.taskDetail}>
@@ -53,9 +57,35 @@ const TaskDetail = props => {
 					<h2 className={classes.taskDetailTitle}>{titleValue}</h2>
 				</Button>
 			)}
-
-			<p className={classes.taskDetailStatusLabel}>Status: {status}</p>
-			<p className={classes.taskDetailPriorityLabel}>Priority: {priority}</p>
+			<br />
+			<p className={classes.taskDetailStatusLabel}>Status:</p>
+			<Select
+				value={statusValue}
+				onChange={e => {
+					handleStatusChange(e);
+					toggleIsEditingSelect(true);
+				}}
+				diplay="inline"
+				className={classes.taskSelectInput}
+			>
+				<MenuItem value={"Open"}>Open</MenuItem>
+				<MenuItem value={"In Progress"}>In Progress</MenuItem>
+			</Select>
+			<br />
+			<p className={classes.taskDetailPriorityLabel}>Priority:</p>
+			<Select
+				value={priorityValue}
+				onChange={e => {
+					handlePriorityChange(e);
+					toggleIsEditingSelect(true);
+				}}
+				diplay="inline"
+				className={classes.taskSelectInput}
+			>
+				<MenuItem value={"High"}>High</MenuItem>
+				<MenuItem value={"Normal"}>Normal</MenuItem>
+				<MenuItem value={"Low"}>Low</MenuItem>
+			</Select>
 			<p className={classes.taskDetailDescriptionLabel}>Description:</p>
 			{isEditingDescription ? (
 				<ClickAwayListener onClickAway={() => toggleIsEditingDescription()}>
@@ -82,7 +112,7 @@ const TaskDetail = props => {
 					</p>
 				</Button>
 			)}
-			{isEditingDescription || isEditingTitle ? (
+			{isEditingDescription || isEditingTitle || isEditingSelect ? (
 				<Button
 					className={classes.saveBtn}
 					variant="outlined"
