@@ -10,7 +10,8 @@ export default {
 		backgroundColor: "#e0e0e0",
 		flex: "1 0 auto",
 		flexGrow: "0",
-		maxHeight: "85%"
+		maxHeight: "85%",
+		overflowY: "auto"
 	},
 	laneHeader: {
 		fontSize: "2rem",

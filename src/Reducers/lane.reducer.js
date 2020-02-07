@@ -8,6 +8,7 @@ const reducer = (state, action) => {
 			return state.filter(lane => lane.id !== action.id);
 		case "updateTaskOrder":
 			const newState = [...state];
+
 			const startLane = state.find(
 				lane => lane.id.toString() === action.sourceDroppableId
 			);
@@ -61,21 +62,54 @@ const reducer = (state, action) => {
 				return [...stateCopy];
 			}
 		case "updateTask":
-			const newLane = state.find(lane =>
-				lane.tasks.some(task => task.id === action.taskId)
-			);
-			const index = state.findIndex(lane => lane.id === newLane.id);
+			// gets called when changes in TaskDetail are being saved
+			let newLane = [];
+			let oldLane = [];
 			let updatedState = [...state];
-			for (let i in newLane.tasks) {
-				if (newLane.tasks[i].id === action.taskId) {
-					newLane.tasks[i].title = action.taskTitle;
-					newLane.tasks[i].status = action.taskStatus;
-					newLane.tasks[i].priority = action.taskPriority;
-					newLane.tasks[i].description = action.taskDescription;
-					break;
+			const newTask = {
+				id: action.taskId,
+				title: action.taskTitle,
+				status: action.taskStatus,
+				priority: action.taskPriority,
+				description: action.taskDescription
+			};
+
+			if (action.taskStatus !== newLane.title) {
+				// Status has changed
+				newLane = state.find(lane => action.taskStatus === lane.title);
+
+				oldLane = state.find(lane =>
+					lane.tasks.some(task => task.id === action.taskId)
+				);
+
+				const taskIndex = oldLane.tasks.findIndex(
+					task => task.id === action.taskId
+				);
+
+				oldLane.tasks.splice(taskIndex, 1);
+
+				const oldLaneIndex = state.findIndex(lane => lane.id === oldLane.id);
+
+				updatedState[oldLaneIndex] = oldLane;
+
+				newLane.tasks.push(newTask);
+			} else {
+				// Status has not changed
+				newLane = state.find(lane =>
+					lane.tasks.some(task => task.id === action.taskId)
+				);
+				for (let i in newLane.tasks) {
+					if (newLane.tasks[i].id === action.taskId) {
+						newLane.tasks[i] = newTask;
+						break;
+					}
 				}
 			}
+
+			const index = state.findIndex(lane => lane.id === newLane.id);
+
 			updatedState[index] = newLane;
+
 			return updatedState;
 		default:
 			return state;

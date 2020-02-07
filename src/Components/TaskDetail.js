@@ -6,7 +6,6 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Input from "@material-ui/core/Input";
 import styles from "../Styles/TaskDetailStyles";
 
@@ -17,8 +16,6 @@ const TaskDetail = props => {
 	const [isEditingTitle, toggleIsEditingTitle] = useState(false);
 	const [statusValue, handleStatusChange] = useInputState(status);
 	const [priorityValue, handlePriorityChange] = useInputState(priority);
-	const [isEditingDescription, toggleIsEditingDescription] = useState(false);
-	const [isEditingSelect, toggleIsEditingSelect] = useState(false);
 	const [titleValue, handleTitleChange] = useInputState(title);
 	const [descriptionValue, handleDescriptionChange] = useInputState(
 		description
@@ -34,22 +31,19 @@ const TaskDetail = props => {
 			taskDescription: descriptionValue
 		});
 		toggleIsEditingTitle(false);
-		toggleIsEditingDescription(false);
-		toggleIsEditingSelect(false);
+		console.log(statusValue);
 	};
 
 	return (
 		<div className={classes.taskDetail}>
 			{isEditingTitle ? (
-				<ClickAwayListener onClickAway={() => handleSave()}>
-					<Input
-						type="text"
-						value={titleValue}
-						onChange={handleTitleChange}
-						autoFocus
-						className={classes.taskTitleInput}
-					/>
-				</ClickAwayListener>
+				<Input
+					type="text"
+					value={titleValue}
+					onChange={handleTitleChange}
+					autoFocus
+					className={classes.taskTitleInput}
+				/>
 			) : (
 				<Button
 					onClick={toggleIsEditingTitle}
@@ -64,9 +58,6 @@ const TaskDetail = props => {
 				value={statusValue}
 				onChange={e => {
 					handleStatusChange(e);
-					if (!isEditingSelect) {
-						toggleIsEditingSelect(true);
-					}
 				}}
 				diplay="inline"
 				className={classes.taskSelectInput}
@@ -87,9 +78,6 @@ const TaskDetail = props => {
 				value={priorityValue}
 				onChange={e => {
 					handlePriorityChange(e);
-					if (!isEditingSelect) {
-						toggleIsEditingSelect(true);
-					}
 				}}
 				diplay="inline"
 				className={classes.taskSelectInput}
@@ -105,40 +93,25 @@ const TaskDetail = props => {
 				</MenuItem>
 			</Select>
 			<p className={classes.taskDetailDescriptionLabel}>Description:</p>
-			{isEditingDescription ? (
-				<ClickAwayListener onClickAway={() => handleSave()}>
-					<TextField
-						value={descriptionValue}
-						onChange={handleDescriptionChange}
-						multiline
-						rows="4"
-						fullWidth
-						InputProps={{
-							className: classes.taskDetailDescriptionInput,
-							disableUnderline: true
-						}}
-						autoFocus
-					/>
-				</ClickAwayListener>
-			) : (
-				<Button className={classes.taskDetailDescriptionBtn}>
-					<p
-						className={classes.taskDetailDescription}
-						onClick={toggleIsEditingDescription}
-					>
-						{descriptionValue}
-					</p>
-				</Button>
-			)}
-			{isEditingDescription || isEditingTitle || isEditingSelect ? (
-				<Button
-					className={classes.saveBtn}
-					variant="outlined"
-					onClick={handleSave}
-				>
-					Save
-				</Button>
-			) : null}
+			<TextField
+				value={descriptionValue}
+				onChange={handleDescriptionChange}
+				multiline
+				rows="4"
+				fullWidth
+				InputProps={{
+					className: classes.taskDetailDescriptionInput,
+					disableUnderline: true
+				}}
+				autoFocus
+			/>
+			<Button
+				className={classes.saveBtn}
+				variant="outlined"
+				onClick={handleSave}
+			>
+				Save
+			</Button>
 		</div>
 	);
 };

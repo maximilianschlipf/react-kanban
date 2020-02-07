@@ -26,6 +26,48 @@ const defaultLanes = [
 				status: "Open",
 				description: "Test description",
 				priority: "Normal"
+			},
+			{
+				id: "66",
+				title: "Test task",
+				status: "Open",
+				description: "Test description",
+				priority: "High"
+			},
+			{
+				id: "77",
+				title: "Test task 4",
+				status: "Open",
+				description: "Test description",
+				priority: "Normal"
+			},
+			{
+				id: "88",
+				title: "Test task 5",
+				status: "Open",
+				description: "Test description",
+				priority: "Normal"
+			},
+			{
+				id: "22",
+				title: "Test task",
+				status: "Open",
+				description: "Test description",
+				priority: "High"
+			},
+			{
+				id: "42",
+				title: "Test task 4",
+				status: "Open",
+				description: "Test description",
+				priority: "Normal"
+			},
+			{
+				id: "53",
+				title: "Test task 5",
+				status: "Open",
+				description: "Test description",
+				priority: "Normal"
 			}
 		]
 	},

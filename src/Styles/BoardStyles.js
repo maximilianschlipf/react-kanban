@@ -60,7 +60,9 @@ export default {
 		backgroundColor: "#e0e0e0",
 		fontSize: "1.2rem",
 		height: "75%",
-		marginLeft: "75%"
+		marginLeft: "75%",
+		boxShadow:
+			"0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)"
 	},
 	boardHeader: {
 		display: "flex",
