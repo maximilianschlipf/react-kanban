@@ -10,7 +10,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import styles from "../Styles/NavbarStyles";
+import styles from "../Styles/CreateTaskFormStyles";
 
 const CreateTaskForm = props => {
 	const { classes, handleClose, open } = props;

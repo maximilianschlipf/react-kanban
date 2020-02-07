@@ -1,9 +1,12 @@
 import React, { useState, useContext } from "react";
 import Lane from "./Lane";
+import CreateTaskForm from "./CreateTaskForm";
+
 import useInputState from "../Hooks/useInputState";
 import { DispatchContext, LanesContext } from "../Context/lanes.context";
 import { DragDropContext } from "react-beautiful-dnd";
 import { withStyles } from "@material-ui/core/styles";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -13,13 +16,17 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import LockIcon from "@material-ui/icons/Lock";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
+import AddIcon from "@material-ui/icons/Add";
 import styles from "../Styles/BoardStyles";
 
 const Board = props => {
 	const { classes } = props;
 	const [isTypingBoardTitle, toggleInputBoardTitle] = useState(false);
 	const [open, setOpen] = useState(false);
+	const [locked, toggleLocked] = useState(false);
+	const [createTaskFormOpen, setOpenCreateTaskForm] = useState(false);
 	const [isTypingLaneTitle, toggleInputLaneTitle] = useState(false);
 	const [laneTitle, handleLaneTitleChange, resetLaneTitleInput] = useInputState(
 		""
@@ -123,27 +130,49 @@ const Board = props => {
 		resetLaneTitleInput();
 	};
 
+	const handleOpenCreateTaskForm = () => {
+		setOpenCreateTaskForm(true);
+	};
+
+	const handleCloseCreateTaskForm = () => {
+		setOpenCreateTaskForm(false);
+	};
+
 	return (
 		<div className={classes.board}>
-			{isTypingBoardTitle ? (
-				<ClickAwayListener onClickAway={() => toggleInputBoardTitle(false)}>
-					<TextField
-						value={boardTitle}
-						onChange={handleBoardTitleChange}
-						autoFocus={true}
-						onKeyDown={e => handleKeyDownBoardTitle(e)}
-						className={classes.boardTitleInput}
-					/>
-				</ClickAwayListener>
-			) : (
+			<div className={classes.boardHeader}>
+				{isTypingBoardTitle ? (
+					<ClickAwayListener onClickAway={() => toggleInputBoardTitle(false)}>
+						<TextField
+							value={boardTitle}
+							onChange={handleBoardTitleChange}
+							autoFocus={true}
+							onKeyDown={e => handleKeyDownBoardTitle(e)}
+							className={classes.boardTitleInput}
+						/>
+					</ClickAwayListener>
+				) : (
+					<Button
+						onClick={toggleEditBoardTitle}
+						className={classes.toggleEditTitleBtn}
+					>
+						<h2 className={classes.boardTitle}>{boardTitle}</h2>
+					</Button>
+				)}
 				<Button
-					onClick={toggleEditBoardTitle}
-					className={classes.toggleEditTitleBtn}
+					className={classes.createTaskBtn}
+					onClick={handleOpenCreateTaskForm}
+					startIcon={<AddIcon />}
 				>
-					<h2 className={classes.boardTitle}>{boardTitle}</h2>
+					Task
 				</Button>
-			)}
-
+				<IconButton
+					onClick={() => toggleLocked(!locked)}
+					className={classes.lockBtn}
+				>
+					{locked ? <LockIcon /> : <LockOpenIcon />}
+				</IconButton>
+			</div>
 			<div className={classes.lanes}>
 				<DragDropContext key={"1"} onDragEnd={onDragEnd}>
 					{lanes.map(lane => (
@@ -154,15 +183,17 @@ const Board = props => {
 							tasks={lane.tasks}
 						/>
 					))}
+					{locked ? null : (
+						<Button
+							variant="contained"
+							onClick={handleClickOpen}
+							className={classes.toggleNewLaneBtn}
+						>
+							Add new lane
+						</Button>
+					)}
 
-					<Button
-						variant="contained"
-						onClick={handleClickOpen}
-						className={classes.toggleNewLaneBtn}
-					>
-						Add new lane
-					</Button>
-
+					{/* This will show up when the user did not type in a title */}
 					<Snackbar
 						anchorOrigin={{
 							vertical: "bottom",
@@ -189,6 +220,7 @@ const Board = props => {
 							}
 						/>
 					</Snackbar>
+					{/* Form for creating a new lane - could be its own component */}
 					<Dialog
 						open={isTypingLaneTitle}
 						onClose={handleCancelCreate}
@@ -229,6 +261,10 @@ const Board = props => {
 						</DialogActions>
 					</Dialog>
 				</DragDropContext>
+				<CreateTaskForm
+					handleClose={handleCloseCreateTaskForm}
+					open={createTaskFormOpen}
+				/>
 			</div>
 		</div>
 	);

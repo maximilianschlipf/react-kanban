@@ -54,5 +54,20 @@ export default {
 	},
 	createLaneFormBtn: {
 		fontSize: "1.3rem"
+	},
+	createTaskBtn: {
+		borderRadius: "5px",
+		backgroundColor: "#e0e0e0",
+		fontSize: "1.2rem",
+		height: "75%",
+		marginLeft: "75%"
+	},
+	boardHeader: {
+		display: "flex",
+		justifyContent: "space-between",
+		alignItems: "center"
+	},
+	lockBtn: {
+		marginRight: "1rem"
 	}
 };
