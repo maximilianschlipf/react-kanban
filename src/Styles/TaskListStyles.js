@@ -3,6 +3,7 @@ export default {
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "flex-start",
-		width: "100%"
+		width: "100%",
+		overflowY: "auto"
 	})
 };

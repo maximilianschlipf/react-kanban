@@ -1,10 +1,14 @@
 export default {
 	board: {
-		height: "97vh",
+		height: "92%",
 		position: "relative",
-		marginTop: "7vh",
 		paddingLeft: "1.5rem",
 		paddingRight: "1.5rem"
+	},
+	boardHeader: {
+		display: "flex",
+		justifyContent: "space-between",
+		alignItems: "center"
 	},
 	boardTitle: {
 		padding: ".5rem 1rem",
@@ -12,12 +16,13 @@ export default {
 	},
 	lanes: {
 		display: "flex",
-		overflowX: "scroll",
+		overflowX: "auto",
 		overflowY: "hidden",
 		whiteSpace: "nowrap",
-		height: "100%",
+		height: "84vh",
 		alignItems: "flex-start",
-		paddingTop: "1rem"
+		paddingTop: "1rem",
+		width: "100%"
 	},
 	newLaneInput: {
 		margin: "0 .5rem",
@@ -64,12 +69,12 @@ export default {
 		boxShadow:
 			"0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)"
 	},
-	boardHeader: {
-		display: "flex",
-		justifyContent: "space-between",
-		alignItems: "center"
-	},
 	lockBtn: {
 		marginRight: "1rem"
+	},
+	tooltip: {
+		fontSize: "1.5rem",
+		padding: ".3rem",
+		fontWeight: "normal"
 	}
 };

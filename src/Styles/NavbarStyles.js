@@ -1,6 +1,6 @@
 export default {
 	navbar: {
-		height: "7vh",
+		height: "8%",
 		flexDirection: "row",
 		backgroundColor: "#e0e0e0",
 		color: "#000",

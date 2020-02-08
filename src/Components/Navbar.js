@@ -10,7 +10,7 @@ const Navbar = props => {
 
 	return (
 		<>
-			<AppBar className={classes.navbar} position="fixed">
+			<AppBar className={classes.navbar} position="sticky">
 				<NavLink
 					exact
 					to="/board"

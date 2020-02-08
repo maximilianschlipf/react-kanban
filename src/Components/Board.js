@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import Lane from "./Lane";
 import CreateTaskForm from "./CreateTaskForm";
-
 import useInputState from "../Hooks/useInputState";
 import { DispatchContext, LanesContext } from "../Context/lanes.context";
 import { DragDropContext } from "react-beautiful-dnd";
@@ -19,6 +18,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import LockIcon from "@material-ui/icons/Lock";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import AddIcon from "@material-ui/icons/Add";
+import Tooltip from "@material-ui/core/Tooltip";
 import styles from "../Styles/BoardStyles";
 
 const Board = props => {
@@ -26,6 +26,7 @@ const Board = props => {
 	const [isTypingBoardTitle, toggleInputBoardTitle] = useState(false);
 	const [open, setOpen] = useState(false);
 	const [locked, toggleLocked] = useState(false);
+	const [message, setMessage] = useState("");
 	const [createTaskFormOpen, setOpenCreateTaskForm] = useState(false);
 	const [isTypingLaneTitle, toggleInputLaneTitle] = useState(false);
 	const [laneTitle, handleLaneTitleChange, resetLaneTitleInput] = useInputState(
@@ -116,11 +117,16 @@ const Board = props => {
 	};
 
 	const handleCreate = () => {
-		if (laneTitle !== "") {
+		const exists = lanes.some(lane => lane.title === laneTitle);
+		if (laneTitle !== "" && !exists) {
 			toggleInputLaneTitle(false);
 			dispatch({ type: "add", title: laneTitle });
 			resetLaneTitleInput();
+		} else if (exists) {
+			setMessage("Title is already in use!");
+			openAlert();
 		} else {
+			setMessage("Please type in a title!");
 			openAlert();
 		}
 	};
@@ -159,19 +165,24 @@ const Board = props => {
 						<h2 className={classes.boardTitle}>{boardTitle}</h2>
 					</Button>
 				)}
-				<Button
-					className={classes.createTaskBtn}
-					onClick={handleOpenCreateTaskForm}
-					startIcon={<AddIcon />}
-				>
-					Task
-				</Button>
-				<IconButton
-					onClick={() => toggleLocked(!locked)}
-					className={classes.lockBtn}
-				>
-					{locked ? <LockIcon /> : <LockOpenIcon />}
-				</IconButton>
+				<Tooltip title={<p className={classes.tooltip}>Create a new task</p>}>
+					<Button
+						aria-label="create task"
+						className={classes.createTaskBtn}
+						onClick={handleOpenCreateTaskForm}
+						startIcon={<AddIcon />}
+					>
+						Task
+					</Button>
+				</Tooltip>
+				<Tooltip title={<p className={classes.tooltip}>Lock lanes</p>}>
+					<IconButton
+						onClick={() => toggleLocked(!locked)}
+						className={classes.lockBtn}
+					>
+						{locked ? <LockIcon /> : <LockOpenIcon />}
+					</IconButton>
+				</Tooltip>
 			</div>
 			<div className={classes.lanes}>
 				<DragDropContext key={"1"} onDragEnd={onDragEnd}>
@@ -181,6 +192,7 @@ const Board = props => {
 							id={lane.id}
 							key={lane.id}
 							tasks={lane.tasks}
+							locked={locked}
 						/>
 					))}
 					{locked ? null : (
@@ -205,7 +217,7 @@ const Board = props => {
 					>
 						<SnackbarContent
 							className={classes.alertOverride}
-							message="Please type in a title!"
+							message={message}
 							action={
 								<>
 									<IconButton

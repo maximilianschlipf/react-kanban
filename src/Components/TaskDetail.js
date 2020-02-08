@@ -31,7 +31,6 @@ const TaskDetail = props => {
 			taskDescription: descriptionValue
 		});
 		toggleIsEditingTitle(false);
-		console.log(statusValue);
 	};
 
 	return (
@@ -103,7 +102,6 @@ const TaskDetail = props => {
 					className: classes.taskDetailDescriptionInput,
 					disableUnderline: true
 				}}
-				autoFocus
 			/>
 			<Button
 				className={classes.saveBtn}

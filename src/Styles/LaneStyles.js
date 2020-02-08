@@ -19,5 +19,10 @@ export default {
 		marginBottom: "1rem",
 		display: "flex",
 		justifyContent: "space-between"
+	},
+	tooltip: {
+		fontSize: "1.5rem",
+		padding: ".3rem",
+		fontWeight: "normal"
 	}
 };
