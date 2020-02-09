@@ -18,7 +18,8 @@ export default {
 		fontWeight: "bold",
 		marginBottom: "1rem",
 		display: "flex",
-		justifyContent: "space-between"
+		justifyContent: "space-between",
+		height: "39px"
 	},
 	tooltip: {
 		fontSize: "1.5rem",

@@ -42,7 +42,9 @@ export default {
 	boardTitleInput: {
 		marginTop: "3.1rem",
 		marginBottom: "1rem",
-		marginLeft: ".5rem"
+		marginLeft: ".5rem",
+		marginRight: "3px",
+		width: "145.7px"
 	},
 	alertOverride: {
 		fontSize: "1.5rem",

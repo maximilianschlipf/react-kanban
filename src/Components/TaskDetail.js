@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Input from "@material-ui/core/Input";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import styles from "../Styles/TaskDetailStyles";
 
 const TaskDetail = props => {
@@ -36,13 +37,15 @@ const TaskDetail = props => {
 	return (
 		<div className={classes.taskDetail}>
 			{isEditingTitle ? (
-				<Input
-					type="text"
-					value={titleValue}
-					onChange={handleTitleChange}
-					autoFocus
-					className={classes.taskTitleInput}
-				/>
+				<ClickAwayListener onClickAway={() => toggleIsEditingTitle()}>
+					<Input
+						type="text"
+						value={titleValue}
+						onChange={handleTitleChange}
+						autoFocus
+						className={classes.taskTitleInput}
+					/>
+				</ClickAwayListener>
 			) : (
 				<Button
 					onClick={toggleIsEditingTitle}
@@ -103,11 +106,7 @@ const TaskDetail = props => {
 					disableUnderline: true
 				}}
 			/>
-			<Button
-				className={classes.saveBtn}
-				variant="outlined"
-				onClick={handleSave}
-			>
+			<Button className={classes.saveBtn} onClick={handleSave}>
 				Save
 			</Button>
 		</div>

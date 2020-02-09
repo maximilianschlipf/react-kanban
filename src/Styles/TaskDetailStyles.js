@@ -26,18 +26,22 @@ export default {
 		marginBottom: "1.1rem",
 		"&:hover, &:focus": {
 			border: "1px solid #e3e3e3",
-			marginBottom: "-1px"
+			marginBottom: ".9rem",
+			paddingLeft: ".65rem"
 		}
 	},
 	saveBtn: {
-		fontSize: "2rem",
-		display: "block"
+		fontSize: "1.75rem",
+		display: "block",
+		backgroundColor: "#e3e3e3",
+		borderRadius: "5px"
 	},
 	taskDetailTitleBtn: {
 		fontSize: "2rem",
 		textAlign: "left",
 		textTransform: "none",
-		paddingLeft: "0"
+		padding: "0",
+		marginBottom: ".6rem"
 	},
 	taskDetailTitle: {
 		fontSize: "2rem",
@@ -47,7 +51,7 @@ export default {
 		fontSize: "2rem"
 	},
 	taskTitleInput: {
-		marginBottom: "1.1rem"
+		marginBottom: ".425rem"
 	},
 	taskSelectInput: {
 		fontSize: "1.4rem",
