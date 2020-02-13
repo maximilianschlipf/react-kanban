@@ -41,7 +41,7 @@ export default {
 	},
 	boardTitleInput: {
 		marginTop: "3.1rem",
-		marginBottom: "1rem",
+		marginBottom: ".9rem",
 		marginLeft: ".5rem",
 		marginRight: "3px",
 		width: "145.7px"

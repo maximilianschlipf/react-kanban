@@ -1,9 +1,10 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
 import laneReducer from "../Reducers/lane.reducer";
+import axios from "axios";
 
 const defaultLanes = [
 	{
-		id: 1,
+		id: "1",
 		title: "Open",
 		tasks: [
 			{
@@ -19,60 +20,11 @@ const defaultLanes = [
 				status: "Open",
 				description: "Test description",
 				priority: "Normal"
-			},
-			{
-				id: "5",
-				title: "Test task 5",
-				status: "Open",
-				description: "Test description",
-				priority: "Normal"
-			},
-			{
-				id: "66",
-				title: "Test task",
-				status: "Open",
-				description: "Test description",
-				priority: "High"
-			},
-			{
-				id: "77",
-				title: "Test task 4",
-				status: "Open",
-				description: "Test description",
-				priority: "Normal"
-			},
-			{
-				id: "88",
-				title: "Test task 5",
-				status: "Open",
-				description: "Test description",
-				priority: "Normal"
-			},
-			{
-				id: "22",
-				title: "Test task",
-				status: "Open",
-				description: "Test description",
-				priority: "High"
-			},
-			{
-				id: "42",
-				title: "Test task 4",
-				status: "Open",
-				description: "Test description",
-				priority: "Normal"
-			},
-			{
-				id: "53",
-				title: "Test task 5",
-				status: "Open",
-				description: "Test description",
-				priority: "Normal"
 			}
 		]
 	},
 	{
-		id: 2,
+		id: "2",
 		title: "In Progress",
 		tasks: [
 			{
@@ -97,7 +49,21 @@ export const DispatchContext = createContext();
 export const LanesContext = createContext();
 
 export function LanesProvider(props) {
+	const getLanes = () => {
+		axios
+			.get("/api")
+			.then(response => {
+				console.log("Data has been retrieved!");
+				const data = response.data;
+				return data;
+			})
+			.catch(() => {
+				alert("Error retrieving data!");
+			});
+	};
+
 	const [lanes, dispatch] = useReducer(laneReducer, defaultLanes);
+
 	return (
 		<LanesContext.Provider value={lanes}>
 			<DispatchContext.Provider value={dispatch}>

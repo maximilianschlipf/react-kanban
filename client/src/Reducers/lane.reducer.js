@@ -1,8 +1,20 @@
 import uuid from "uuid/v4";
+import axios from "axios";
 
 const reducer = (state, action) => {
 	switch (action.type) {
 		case "add":
+			axios({
+				url: "http://localhost:8080/api/save",
+				method: "POST",
+				data: [...state, { id: uuid(), title: action.title, tasks: [] }]
+			})
+				.then(() => {
+					console.log("Data has been sent to the server");
+				})
+				.catch(() => {
+					console.log("Internal server error");
+				});
 			return [...state, { id: uuid(), title: action.title, tasks: [] }];
 		case "remove":
 			return state.filter(lane => lane.id !== action.id);
@@ -10,17 +22,17 @@ const reducer = (state, action) => {
 			const newState = [...state];
 
 			const startLane = state.find(
-				lane => lane.id.toString() === action.sourceDroppableId
+				lane => lane.id === action.sourceDroppableId
 			);
 			const startIndex = state.findIndex(
-				lane => lane.id.toString() === action.sourceDroppableId
+				lane => lane.id === action.sourceDroppableId
 			);
 			const finishIndex = state.findIndex(
-				lane => lane.id.toString() === action.destinationDroppableId
+				lane => lane.id === action.destinationDroppableId
 			);
 
 			const finishLane = state.find(
-				lane => lane.id.toString() === action.destinationDroppableId
+				lane => lane.id === action.destinationDroppableId
 			);
 			const oldTasks = Array.from(startLane.tasks);
 
@@ -64,7 +76,9 @@ const reducer = (state, action) => {
 		case "updateTask":
 			// gets called when changes in TaskDetail are being saved
 			let newLane = [];
-			let oldLane = [];
+			let oldLane = state.find(lane =>
+				lane.tasks.some(task => task.id === action.taskId)
+			);
 			let updatedState = [...state];
 			const newTask = {
 				id: action.taskId,
@@ -74,13 +88,9 @@ const reducer = (state, action) => {
 				description: action.taskDescription
 			};
 
-			if (action.taskStatus !== newLane.title) {
+			if (action.taskStatus !== oldLane.title) {
 				// Status has changed
 				newLane = state.find(lane => action.taskStatus === lane.title);
-
-				oldLane = state.find(lane =>
-					lane.tasks.some(task => task.id === action.taskId)
-				);
 
 				const taskIndex = oldLane.tasks.findIndex(
 					task => task.id === action.taskId
@@ -109,7 +119,6 @@ const reducer = (state, action) => {
 			const index = state.findIndex(lane => lane.id === newLane.id);
 
 			updatedState[index] = newLane;
-
 			return updatedState;
 		default:
 			return state;
