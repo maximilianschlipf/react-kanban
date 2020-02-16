@@ -18,6 +18,8 @@ const reducer = (state, action) => {
 			return [...state, { id: uuid(), title: action.title, tasks: [] }];
 		case "remove":
 			return state.filter(lane => lane.id !== action.id);
+		case "updateWithFetchedData":
+			return action.data;
 		case "updateTaskOrder":
 			const newState = [...state];
 

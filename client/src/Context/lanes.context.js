@@ -1,6 +1,5 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import laneReducer from "../Reducers/lane.reducer";
-import axios from "axios";
 
 const defaultLanes = [
 	{
@@ -9,14 +8,14 @@ const defaultLanes = [
 		tasks: [
 			{
 				id: "1",
-				title: "Test task",
+				title: "Test task (Default)",
 				status: "Open",
 				description: "Test description",
 				priority: "High"
 			},
 			{
 				id: "4",
-				title: "Test task 4",
+				title: "Test task 4 (Default)",
 				status: "Open",
 				description: "Test description",
 				priority: "Normal"
@@ -29,14 +28,14 @@ const defaultLanes = [
 		tasks: [
 			{
 				id: "2",
-				title: "Test task 2",
+				title: "Test task 2 (Default)",
 				status: "In Progress",
 				description: "Test description",
 				priority: "Normal"
 			},
 			{
 				id: "3",
-				title: "Test task 3",
+				title: "Test task 3 (Default)",
 				status: "In Progress",
 				description: "Test description",
 				priority: "Normal"
@@ -49,19 +48,6 @@ export const DispatchContext = createContext();
 export const LanesContext = createContext();
 
 export function LanesProvider(props) {
-	const getLanes = () => {
-		axios
-			.get("/api")
-			.then(response => {
-				console.log("Data has been retrieved!");
-				const data = response.data;
-				return data;
-			})
-			.catch(() => {
-				alert("Error retrieving data!");
-			});
-	};
-
 	const [lanes, dispatch] = useReducer(laneReducer, defaultLanes);
 
 	return (
