@@ -67,7 +67,7 @@ const reducer = (state, action) => {
 					console.log("Updated data has been sent to the server");
 				})
 				.catch(() => {
-					console.log("Internal server error (PUT)");
+					console.log("Internal server error (PUT request)");
 				});
 
 			return [...newState];
@@ -133,6 +133,19 @@ const reducer = (state, action) => {
 			const index = state.findIndex(lane => lane.id === newLane.id);
 
 			updatedState[index] = newLane;
+
+			axios({
+				url: "http://localhost:8080/api/put",
+				method: "PUT",
+				data: [...updatedState]
+			})
+				.then(() => {
+					console.log("Updated data has been sent to the server");
+				})
+				.catch(() => {
+					console.log("Internal server error (PUT request)");
+				});
+
 			return updatedState;
 		default:
 			return state;

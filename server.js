@@ -11,7 +11,8 @@ const PORT = process.env.PORT || 8080;
 
 const routes = require("./routes/api");
 
-const MONGODB_URI = "";
+const MONGODB_URI =
+	"mongodb+srv://mschlipf:mekong23@react-kanban-jehyd.mongodb.net/test?retryWrites=true&w=majority";
 
 mongoose.connect(MONGODB_URI || "mongodb://localhost/react-kanban", {
 	useNewUrlParser: true,
