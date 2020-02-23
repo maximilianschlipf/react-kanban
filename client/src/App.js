@@ -35,7 +35,6 @@ function App() {
 			});
 	};
 
-	// Runs once
 	useEffect(() => {
 		getLanes();
 	}, []);

@@ -8,7 +8,6 @@ router.get("/", (req, res) => {
 	Lane.find({})
 		.then(data => {
 			res.json(data);
-			console.log("Get it!");
 		})
 		.catch(error => {
 			console.log("Error: ", error);
@@ -21,10 +20,27 @@ router.post("/save", (req, res) => {
 	newLane.collection.insertMany(data, err => {
 		if (err) {
 			console.log(err);
-			res.send(err)
+			res.send(err);
 		} else {
-			console.log("Multiple docs inserted");
-			res.send("Multiple docs inserted")
+			res.send("Multiple docs inserted");
+		}
+	});
+});
+
+router.put("/put", (req, res) => {
+	const data = req.body;
+	Lane.deleteMany({}, err => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		}
+	});
+	Lane.insertMany(data, err => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		} else {
+			res.send("Multiple docs updated");
 		}
 	});
 });

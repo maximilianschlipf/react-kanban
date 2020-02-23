@@ -58,6 +58,18 @@ const reducer = (state, action) => {
 
 			newState[startIndex].tasks = oldTasks;
 
+			axios({
+				url: "http://localhost:8080/api/put",
+				method: "PUT",
+				data: [...newState]
+			})
+				.then(() => {
+					console.log("Updated data has been sent to the server");
+				})
+				.catch(() => {
+					console.log("Internal server error (PUT)");
+				});
+
 			return [...newState];
 		case "addTask":
 			if (action.taskTitle === "" || action.taskTitle === undefined) {
