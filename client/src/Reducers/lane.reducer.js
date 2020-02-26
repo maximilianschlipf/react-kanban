@@ -75,8 +75,9 @@ const reducer = (state, action) => {
 			if (action.taskTitle === "" || action.taskTitle === undefined) {
 				return state;
 			} else {
-				const firstLane = state.find(lane => lane.id === 1);
+				const firstLane = state.find(lane => lane.id === "1");
 				const stateCopy = [...state];
+
 				firstLane.tasks.push({
 					id: uuid(),
 					title: action.taskTitle,
@@ -85,6 +86,19 @@ const reducer = (state, action) => {
 					priority: action.priority
 				});
 				stateCopy[0] = firstLane;
+
+				axios({
+					url: "http://localhost:8080/api/put",
+					method: "PUT",
+					data: [...stateCopy]
+				})
+					.then(() => {
+						console.log("Updated data has been sent to the server");
+					})
+					.catch(() => {
+						console.log("Internal server error (PUT request)");
+					});
+
 				return [...stateCopy];
 			}
 		case "updateTask":
